@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import axios from 'axios';
 import FranquiaTemplate from '../../atoms/franquiaTemplate/FranquiaTemplate';
 import ProcurarFranquia from '../../atoms/procurarFranquia/ProcurarFranquia';
