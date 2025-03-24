@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { useParams, useNavigate } from "react-router-dom";
+import { useParams, useNavigate } from "react-router";
 import styles from './AtualizarUsuario.module.css';
 import axios from "axios";
 import Deslogar from "../../atoms/Deslogar/Deslogar";

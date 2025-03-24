@@ -1,6 +1,6 @@
-import React from 'react';
+
 import styles from './FranquiaTemplate.module.css';
-import { useNavigate } from 'react-router-dom'; 
+import { useNavigate } from 'react-router'; 
 
 const FranquiaTemplate = (props) => {
   const navigate = useNavigate();

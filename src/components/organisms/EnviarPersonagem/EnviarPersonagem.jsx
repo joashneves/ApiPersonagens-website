@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react'; 
 import styles from './EnviarPersonagem.module.css';
-import { useParams } from 'react-router-dom';
+import { useParams } from 'react-router';
 import axios from 'axios';
 
 const EnviarPersonagem = () => {

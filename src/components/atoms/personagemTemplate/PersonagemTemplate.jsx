@@ -1,6 +1,5 @@
-import React from 'react';
 import styles from './PersonagemTemplate.module.css';
-import { useNavigate } from 'react-router-dom'; 
+import { useNavigate } from 'react-router'; 
 import ImagemPersonagem from '../imagemPersonagem/imagemPersonagem';
 
 // Mapeamento do GenderEnum para emoticons e cores
