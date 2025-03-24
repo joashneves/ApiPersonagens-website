@@ -15,7 +15,12 @@ const LoginForm = () => {
         const response = await axios.put(`${import.meta.env.VITE_REACT_APP_LINK}Contas/login`, {
           userName,
           password,
-        });
+        },
+          {
+         headers: {
+          'Content-Type': 'application/json',
+          'accept': '*/*',
+        }});
         console.log(response.data)
         // Acessa o token aninhado dentro de response.data.token.token
         const token  = response.data?.token?.token;

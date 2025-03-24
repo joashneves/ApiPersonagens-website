@@ -29,7 +29,7 @@ const Coluna = () => {
                     </p>
                     <p
                         className={styles.conteudo_link}
-                        onClick={() => navigate('/Persona')} // Redireciona para a página de Poersonages
+                        onClick={() => navigate('/PersonagemLista')} // Redireciona para a página de Poersonages
                     >
                         Personagens
                     </p>
