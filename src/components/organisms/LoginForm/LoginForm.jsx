@@ -1,5 +1,5 @@
-import React, { useState, useEffect } from 'react';
-import { useNavigate } from 'react-router';
+import  { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import styles from './LoginForm.module.css';
 import axios from 'axios';
 
@@ -8,10 +8,11 @@ const LoginForm = () => {
     const [password, setPassword] = useState('');
     const [error, setError] = useState('');
     const navigate = useNavigate();
-  
+    const [carregando, setCarregando] = useState(false);
     const handleLogin = async (e) => {
       e.preventDefault();
       try {
+        setCarregando(true);
         const response = await axios.put(`${import.meta.env.VITE_REACT_APP_LINK}Contas/login`, {
           userName,
           password,
@@ -33,9 +34,11 @@ const LoginForm = () => {
   
         // Redireciona para a página desejada após o login
         navigate('/Home');
+        setCarregando(false);
       } catch (err) {
         console.log(err)
         setError('Falha ao realizar o login. Verifique suas credenciais.');
+        setCarregando(false);
       }
     };
 
@@ -65,7 +68,7 @@ const LoginForm = () => {
                         className={styles.preencherInput}
                     />
                 </div>
-                <button type="submit" value="Cadastrar" className={styles.botaologin}>Login</button>
+                {  carregando ?   (<button>Carregando...</button>): (<button type="submit" value="Cadastrar" className={styles.botaologin}>Login</button>)}
             </form>
         </article>
     );

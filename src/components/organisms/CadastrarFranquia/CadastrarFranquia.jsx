@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import styles from './CadastrarFranquia.module.css';
 import axios from 'axios';
 
@@ -12,10 +12,10 @@ const CadastrarFranquia = () => {
     const [data_Published , setData_Published] = useState(''); 
     const [error, setError] = useState(null);
     const [success, setSuccess] = useState(null);
-
+    const [loading, setLoading] = useState(false);
     const handleSubmit = async (event) => {
         event.preventDefault();
-
+        setLoading(true);
         // Cria o objeto do DTO
         const franquiaDTO = {
             name: name,
@@ -46,6 +46,7 @@ const CadastrarFranquia = () => {
             setSuccess('Franquia cadastrado com sucesso!');
             setError(null);
             window.location.reload();
+            setLoading(false);
         } catch (error) {
             // Verifica se o erro é de não autorizado (status 401)
             if (error.response?.status === 401) {
@@ -54,6 +55,7 @@ const CadastrarFranquia = () => {
                 setError('Ocorreu um erro ao cadastrar o A franquia.');
             }
             setSuccess(null);
+            setLoading(false);
         }
     };
 
@@ -117,9 +119,9 @@ const CadastrarFranquia = () => {
                         placeholder="Digite o nome do criador"/>
                   </label>
                     </div>
-                    <button type="submit" className={styles.botaoCadastrar}>
-                        Cadastrar
-                    </button>
+                    <button type="submit" className={styles.botaoCadastrar} disabled={loading}>
+                                        {loading ? 'Cadastrando...' : 'Cadastrar'}
+                                    </button>
                 </form>
                 {error && <p style={{ color: 'red' }}>{error}</p>}
                 {success && <p style={{ color: 'green' }}>{success}</p>}

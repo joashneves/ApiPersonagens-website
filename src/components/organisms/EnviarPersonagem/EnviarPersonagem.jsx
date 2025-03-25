@@ -13,6 +13,7 @@ const EnviarPersonagem = () => {
     const [error, setError] = useState(null);
     const [success, setSuccess] = useState(null);
     const { id } = useParams();
+    const [loading, setLoading] = useState(false);
     
     useEffect(() => {
         // Carregar o nome da franquia ao carregar o componente
@@ -31,7 +32,7 @@ const EnviarPersonagem = () => {
     
     const handleSubmit = async (event) => {
         event.preventDefault();
-    
+        setLoading(true);
         if (!arquivo) {
             setError('Selecione um arquivo para upload.');
             return;
@@ -60,6 +61,7 @@ const EnviarPersonagem = () => {
             setSuccess('Arquivo cadastrado com sucesso!');
             setError(null);
             window.location.reload();
+            setLoading(false);
         } catch (error) {
             if (error.response?.status === 401) {
                 setError('Você não está autorizado a enviar o arquivo.');
@@ -67,6 +69,7 @@ const EnviarPersonagem = () => {
                 setError('Ocorreu um erro ao cadastrar o arquivo.');
             }
             setSuccess(null);
+            setLoading(false);
         }
     };
     
@@ -130,8 +133,8 @@ const EnviarPersonagem = () => {
                         </div>
                     )}
                 </div>
-                <button type="submit" className={styles.botaoCadastrar}>
-                    Enviar
+                <button type="submit" className={styles.botaoCadastrar} disabled={loading}>
+                    {loading ? 'Cadastrando...' : 'Cadastrar'}
                 </button>
             </form>
             {error && <p style={{ color: 'red' }}>{error}</p>}
