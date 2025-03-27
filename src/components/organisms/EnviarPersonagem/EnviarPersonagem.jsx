@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import styles from './EnviarPersonagem.module.css';
 import { useParams } from 'react-router';
 import axios from 'axios';
+import Compress from 'compress.js';
 
 const EnviarPersonagem = () => {
     // Define o estado para os campos do formulário
@@ -15,6 +16,7 @@ const EnviarPersonagem = () => {
     const { id } = useParams();
     const [loading, setLoading] = useState(false);
     
+    const compress = new Compress();
     useEffect(() => {
         // Carregar o nome da franquia ao carregar o componente
         const fetchFranquia = async () => {
@@ -37,12 +39,22 @@ const EnviarPersonagem = () => {
             setError('Selecione um arquivo para upload.');
             return;
         }
-    
+        
+        const novoArquivo = await compress.compress(arquivo, {
+            size: 4,
+            quality: 0.50,
+            maxHeight: 600,
+            maxWidth: 600,
+            resize: true
+                })
+        console.log("arquivo antigo",arquivo)
+        console.log("arquivo novo",novoArquivo)
+
         const formData = new FormData();
         formData.append('Name_Franquia', nome_franquia);
         formData.append('Name', nome);
         formData.append('Gender', gender);
-        formData.append('ArquivoPersonagem', arquivo);
+        formData.append('ArquivoPersonagem', novoArquivo);
 
         // Recupera o token do sessionStorage
         const token = sessionStorage.getItem('accessToken');
@@ -63,8 +75,11 @@ const EnviarPersonagem = () => {
             window.location.reload();
             setLoading(false);
         } catch (error) {
+            console.log(error.response.data)
             if (error.response?.status === 401) {
                 setError('Você não está autorizado a enviar o arquivo.');
+            } else if (error.response?.status === 400){
+                setError(error.response.data)
             } else {
                 setError('Ocorreu um erro ao cadastrar o arquivo.');
             }

@@ -21,7 +21,7 @@ const CadastrarUsuario = () => {
             email: email,
             password: password,
         };
-
+        console.log("Usuario esta sendo criado", usuarioDTO);
         const token = sessionStorage.getItem('accessToken');
 
 
@@ -43,6 +43,7 @@ const CadastrarUsuario = () => {
             // Atualiza a página após o sucesso
             window.location.reload();
         } catch (error) {
+            console.log(error);
             if (error.response?.status === 401) {
                 setError('Você não está autorizado a cadastrar o usuário.');
             } else {
