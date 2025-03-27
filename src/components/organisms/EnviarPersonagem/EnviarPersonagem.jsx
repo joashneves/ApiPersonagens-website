@@ -74,12 +74,12 @@ const EnviarPersonagem = () => {
             setError(null);
             window.location.reload();
             setLoading(false);
-        } catch (error) {
-            console.log(error.response.data)
+        } catch (error) { 
+            console.log(error.response.status)
             if (error.response?.status === 401) {
                 setError('Você não está autorizado a enviar o arquivo.');
             } else if (error.response?.status === 400){
-                setError(error.response.data)
+                setError("Arquivo muito grande, ou nome muito grande no arquivo")
             } else {
                 setError('Ocorreu um erro ao cadastrar o arquivo.');
             }
