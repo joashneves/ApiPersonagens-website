@@ -50,12 +50,16 @@ const EnviarPersonagem = () => {
         console.log("arquivo antigo",arquivo)
         console.log("arquivo novo",novoArquivo)
 
+        const UserName = sessionStorage.getItem('user'); 
+        const Password =  sessionStorage.getItem('password'); 
+        console.log(UserName, Password)
         const formData = new FormData();
         formData.append('Name_Franquia', nome_franquia);
         formData.append('Name', nome);
         formData.append('Gender', gender);
+        formData.append('UserName', UserName);
         formData.append('ArquivoPersonagem', novoArquivo);
-
+        console.log(formData.get("UserName"))
         // Recupera o token do sessionStorage
         const token = sessionStorage.getItem('accessToken');
     
@@ -77,9 +81,9 @@ const EnviarPersonagem = () => {
         } catch (error) { 
             console.log(error.response.status)
             if (error.response?.status === 401) {
-                setError('Você não está autorizado a enviar o arquivo.');
+                setError('Você não está autorizado a enviar o arquivo, faça login novamente.');
             } else if (error.response?.status === 400){
-                setError("Arquivo muito grande, ou nome muito grande no arquivo")
+                setError("Arquivo muito grande, ou nome muito grande no arquivo, altere o nome do arquivo para no minimo 5 digitos")
             } else {
                 setError('Ocorreu um erro ao cadastrar o arquivo.');
             }
