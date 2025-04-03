@@ -52,8 +52,19 @@ const ListaFranquia = () => {
   return (
     <>
       <ProcurarFranquia setFiltros={setFiltros} /> {/* Componente para busca de franquias */}
+
+      <div>
+        <button onClick={handlePreviousPage} disabled={pageNumber === 0}>
+          Página Anterior
+        </button>
+        <span>{pageNumber + 1}</span>
+        <button onClick={handleNextPage}>
+          Próxima Página
+        </button>
+      </div>
+      
       {franquiasFiltradas.length > 0 ? (
-        franquiasFiltradas.slice().reverse().map((franquia) => (
+        franquiasFiltradas.slice().map((franquia) => (
           <FranquiaTemplate
             key={franquia.id}
             id={franquia.id}
